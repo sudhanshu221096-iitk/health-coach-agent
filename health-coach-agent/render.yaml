@@ -3,9 +3,8 @@ services:
     name: health-coach-agent
     env: python
     plan: free
-    pythonVersion: "3.11.9"
     buildCommand: pip install -r requirements.txt
-    startCommand: cd /opt/render/project/src && uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    startCommand: PYTHONPATH=/opt/render/project/src uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: GEMINI_API_KEY
         sync: false
@@ -13,3 +12,5 @@ services:
         value: ./data/chroma_db
       - key: WELLNESS_PDF_PATH
         value: ./data/wellness_protocol.pdf
+      - key: PYTHONPATH
+        value: /opt/render/project/src

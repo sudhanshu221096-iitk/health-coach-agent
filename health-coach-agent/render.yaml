@@ -3,10 +3,9 @@ services:
     name: health-coach-agent
     env: python
     plan: free
-    buildCommand: |
-      pip install -r requirements.txt &&
-      python scripts/generate_pdf.py
-    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    pythonVersion: "3.11.9"
+    buildCommand: pip install -r requirements.txt
+    startCommand: cd /opt/render/project/src && uvicorn api.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: GEMINI_API_KEY
         sync: false
